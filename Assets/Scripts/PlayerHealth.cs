@@ -5,14 +5,10 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public float value = 100;
-    public RectTransform valueRectTransform;
     
     public void DealDamage(float damage)
     {
+        if(value > 0)
         value -= damage;
-        if(value <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 }
