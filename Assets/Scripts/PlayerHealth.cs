@@ -11,4 +11,10 @@ public class PlayerHealth : MonoBehaviour
         if(value > 0)
         value -= damage;
     }
+
+    void Update()
+    {
+        value = Mathf.Clamp(value, 0, 100);
+    }
+
 }

@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio; 
 
 public class Fireball : MonoBehaviour
 {
     public float speed;
     public float lifetime;
     public float damage = 10;
+    public AudioSource audioSource;
     private void Start()
     {
+        audioSource.Play();
         Invoke("DestroyFireball", lifetime);
     }
 
