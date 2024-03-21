@@ -8,26 +8,22 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;
     private float TimeToNextSpawn;
     public float DefaultTime;
+    public int enemyToSpawn;
     public static int spawnedEnemy;
     public PlayerController _player;
     public List<Transform> _patrolPoints;
-    // public List<EnemyAI> Enemies;
-    
+   
     void Update()
     {
-        if(TimeToNextSpawn > 0)
-        {
-            TimeToNextSpawn--;
-        }
-        else if(TimeToNextSpawn <= 0 && spawnedEnemy < 1)
-        {
-            var enemy = Instantiate(EnemyPrefab);
-            enemy.transform.position = spawnPoint.position;
-            TimeToNextSpawn = DefaultTime;
-            spawnedEnemy++;
-            enemy.player = _player;
-            enemy.patrolPoints = _patrolPoints;
-        } 
+        if(TimeToNextSpawn > 0) TimeToNextSpawn-=Time.deltaTime;
+        else if(TimeToNextSpawn <= 0 && spawnedEnemy < enemyToSpawn) CreateEnemy();
     }
-
+    void CreateEnemy()
+    {
+        var enemy = Instantiate(EnemyPrefab);
+        enemy.transform.position = spawnPoint.position;
+        TimeToNextSpawn = DefaultTime;
+        spawnedEnemy++;
+        enemy.patrolPoints = _patrolPoints;
+    }
 }

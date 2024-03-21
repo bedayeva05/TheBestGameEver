@@ -13,18 +13,26 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     private bool _isPlayerNoticed;
     private PlayerHealth _playerHealth;
-
+    private EnemyHealth _enemyHealth;
+    public bool IsAlive()   
+    {
+        return _enemyHealth.IsAlive();
+    }
+    
     void Start()
     {
+        player = FindObjectOfType<PlayerController>();
         InitComponentLinks();
         PickNewPatrolPoint();
     }
+   
     private void InitComponentLinks()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _playerHealth = player.GetComponent<PlayerHealth>();
+        _enemyHealth = GetComponent<EnemyHealth>();
     }
-    private void Update()
+    public void Update()
     {     
         NoticePlayerUpdate();
         ChaseUpdate();
@@ -57,6 +65,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void NoticePlayerUpdate()
     {
+        // Debug.Log(player.transform.position);
         var direction = player.transform.position - transform.position;
         _isPlayerNoticed = false;
 
